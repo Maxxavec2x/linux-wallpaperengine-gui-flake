@@ -27,6 +27,9 @@
           sha256 = "sha256-UKURQDPH07WB/QlyFNOI6SEjPCP63Hg9a35pu48UPSM=";
         };
 
+        # to get .desktop and icon.png :
+        appimageContents = pkgs.appimageTools.extract { inherit pname version src; };
+
         package = pkgs.appimageTools.wrapType2 {
           inherit pname version src;
 
@@ -67,6 +70,14 @@
             platforms = [ "x86_64-linux" ];
             mainProgram = pname;
           };
+
+          extraInstallCommands = ''
+            install -Dm444 ${appimageContents}/${pname}.desktop -t $out/share/applications
+            install -Dm444 ${appimageContents}/${pname}.png \
+              $out/share/icons/hicolor/512x512/apps/${pname}.png
+            substituteInPlace $out/share/applications/${pname}.desktop \
+              --replace 'Exec=AppRun --no-sandbox %U' 'Exec=${pname} %U'
+          '';
         };
       in
       {
