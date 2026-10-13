@@ -20,11 +20,11 @@
         pkgs = import nixpkgs { inherit system; };
 
         pname = "linux-wallpaperengine-gui";
-        version = "0.5.2";
+        version = "0.6.1";
 
         src = pkgs.fetchurl {
           url = "https://github.com/AzPepoze/linux-wallpaperengine-gui/releases/download/v${version}/linux-wallpaperengine-gui.AppImage";
-          sha256 = "sha256-UKURQDPH07WB/QlyFNOI6SEjPCP63Hg9a35pu48UPSM=";
+          sha256 = "sha256-qWAjRD5+CMRdflaCk9UkG0ob+T4ZKcMOdNq8Y7th4TI=";
         };
 
         # to get .desktop and icon.png :
